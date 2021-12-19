@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import getDeliveryDates from './intervalsHelper';
 
-function App() {
+const App = () => {
+  const days = getDeliveryDates();
+  console.log(days);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {days.map((day, index) => {
+        return (
+          <div key={index}>
+            <div>
+              <input type="radio" />
+              <label>{day.name}</label>
+            </div>
+            <div>
+              <select>
+                {day.intervals.map((interval, index) => {
+                  return (
+                    <option
+                      key={index}
+                    >{`${interval.start}-${interval.end}`}</option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
-}
+};
 
 export default App;
